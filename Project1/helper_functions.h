@@ -1,14 +1,15 @@
 #ifndef HELPER_FUNCTIONS_H_
 #define HELPER_FUNCTIONS_H_
 
-double **create_double_mat();
-void fill_double_mat_random(double **mat);
-void free_double_mat(double **mat);
-void print_double_mat(double **mat);
+#include <stdint.h>
 
-uint16_t **create_short_mat();
-void fill_short_mat_random(uint16_t **mat);
-void free_short_mat(uint16_t **mat);
-void print_short_mat(uint16_t **mat);
+//float *create_random_float_mat(int rows, int cols);
+//void free_float_mat(float **mat);
+//void print_float_mat(float **mat);
+
+int16_t *create_short_mat(int rows, int cols);
+int16_t *create_random_short_mat(int rows, int cols);
+void free_short_mat(int16_t *mat, int rows, int cols);
+void print_short_mat(int16_t *mat, int rows, int cols);
 
 #endif //HELPER_FUNCTIONS_H_
