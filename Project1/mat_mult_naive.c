@@ -5,37 +5,7 @@
 #include <unistd.h>
 
 #include "helper_functions.h"
-
-void multiply(int16_t *m1, int rows1, int cols1, int16_t *m2, int rows2, int cols2, int16_t **result) 
-{
-    //check cols1==rows2
-
-
-/*
-    for (int i = 0; i < rows1; i++)
-    {
-        for (int j = 0; j < cols2; j++)
-        {
-            for (int k = 0; k < cols1; k++)
-            {
-                (*result)[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
-                //printf("%d, %d, %d, %d\n", i, j, k, result[i*rows1+j]);
-            }
-        }
-    }
-    */
-    for (int k = 0; k < cols1; k++)
-    {
-        for (int j = 0; j < cols2; j++)
-        {
-            for (int i = 0; i < rows1; i++)
-            {
-                (*result)[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
-                //printf("%d, %d, %d, %d\n", i, j, k, result[i*rows1+j]);
-            }
-        }
-    }
-}
+#include "matrix_multiply.h"
 
 void main()
 {
@@ -65,9 +35,15 @@ void main()
     printf("Matrix 2\n");
     print_short_mat(matrix2, 2, 3);
 
-    multiply(matrix1, 3, 2, matrix2, 2, 3, &result);
-
+    multiply_short_naive(matrix1, 3, 2, matrix2, 2, 3, result);
+    printf("----\n");
     print_short_mat(result, 3, 3);
+    clear_mat(result, 3, 3);
+
+    multiply_short_block(matrix1, 3, 2, matrix2, 2, 3, 2, result);
+    printf("----\n");
+    print_short_mat(result, 3, 3);
+    clear_mat(result, 3, 3);
 
     free(matrix1);
     free(matrix2);
@@ -76,50 +52,30 @@ void main()
     struct timeval time_start;
 	struct timeval time_end;
 
-    printf("Starting 1k x 1k\n");
-    int SIZE = 1000;
+    int SIZE = 10000;
+    printf("Starting %d x %d\n", SIZE, SIZE);
     matrix1 = create_random_short_mat(SIZE, SIZE);
     matrix2 = create_random_short_mat(SIZE, SIZE);
-    for (int i = 0; i < SIZE*SIZE; i++)
-    {
-        matrix1[i] = 1;
-        matrix2[i] = 1;
-    }
     result = create_short_mat(SIZE, SIZE);
 	gettimeofday(&time_start, NULL);
-    multiply(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, &result);
+    multiply_short_naive(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, result);
     gettimeofday(&time_end, NULL);
 
     long long multiply_time = 1000000LL * (time_end.tv_sec  - time_start.tv_sec) + (time_end.tv_usec - time_start.tv_usec);
-	printf("%lld,", multiply_time);
+	printf("%lld\n", multiply_time);
 
+
+    printf("Starting %d x %d block\n", SIZE, SIZE);
+    //clear_mat(result, SIZE, SIZE);
+    gettimeofday(&time_start, NULL);
+    multiply_short_block(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, 2048, result);
+    gettimeofday(&time_end, NULL);
+    multiply_time = 1000000LL * (time_end.tv_sec  - time_start.tv_sec) + (time_end.tv_usec - time_start.tv_usec);
+	printf("%lld\n", multiply_time);
+
+    free(result);
     free(matrix1);
     free(matrix2);
-    free(result);
 
-
-    printf("Finished 1k\n");
-
-/*
-    printf("Starting 2k x 2k\n");
-    SIZE = 2000;
-    matrix1 = create_random_short_mat(SIZE, SIZE);
-    matrix2 = create_random_short_mat(SIZE, SIZE);
-    result = create_short_mat(SIZE, SIZE);
-    multiply(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, &result);
-    free(matrix1);
-    free(matrix2);
-    free(result);
-    printf("Finished 2k\n");
-
-    printf("Starting 3k x 3k\n");
-    SIZE = 3000;
-    matrix1 = create_random_short_mat(SIZE, SIZE);
-    matrix2 = create_random_short_mat(SIZE, SIZE);
-    multiply(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, &result);
-    free(matrix1);
-    free(matrix2);
-    free(result);
-    printf("Finished 3k\n");
-    */
+    printf("Finished %d x %d\n", SIZE, SIZE);
 }

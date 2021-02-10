@@ -37,3 +37,14 @@ void print_short_mat(int16_t *mat, int rows, int cols)
         printf("\n");
     }
 }
+
+void clear_mat(int16_t *mat, int rows, int cols)
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            mat[i*cols + j] = 0;
+        }
+    }
+}
