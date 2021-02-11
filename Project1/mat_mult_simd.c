@@ -24,6 +24,7 @@ void main()
     print_short_mat(matrix2, SIZE, SIZE);
 
     multiply_short_simd(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, result);
+    printf("Test simd:\n");
     print_short_mat(result, SIZE, SIZE);
 
 
@@ -56,7 +57,7 @@ void main()
     struct timeval time_start;
 	struct timeval time_end;
 
-    SIZE = 4096;
+    SIZE = 10000;
     printf("Starting %d x %d\n", SIZE, SIZE);
     matrix1 = create_random_short_mat(SIZE, SIZE);
     matrix2 = create_random_short_mat(SIZE, SIZE);
@@ -70,7 +71,7 @@ void main()
 
 
     printf("Starting %d x %d simd\n", SIZE, SIZE);
-    //clear_mat(result, SIZE, SIZE);
+    clear_mat(result, SIZE, SIZE);
     gettimeofday(&time_start, NULL);
     multiply_short_simd(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, result);
     gettimeofday(&time_end, NULL);

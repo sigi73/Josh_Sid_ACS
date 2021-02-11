@@ -1,4 +1,16 @@
 cmake_minimum_required(VERSION 3.0.0)
+
+
+macro(remove_cxx_flag flag)
+  string(REPLACE "${flag}" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+endmacro()
+
+message(${CMAKE_CXX_FLAGS_RELEASE})
+remove_cxx_flag("-O3")
+message(${CMAKE_CXX_FLAGS_RELEASE})
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -O2")
+message(${CMAKE_CXX_FLAGS_RELEASE}) # print "-DNDEBUG"
+
 project(Josh_Sid_ACS VERSION 0.1.0)
 
 

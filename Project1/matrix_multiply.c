@@ -54,26 +54,6 @@ void multiply_short_block(int16_t *m1, int rows1, int cols1, int16_t *m2, int ro
             }
         }
     }
-
-    /*
-   int count = 0;
-   for (int k = 0; k < cols1; k += block_size)
-   {
-       for (int j = 0; j < cols2; j += block_size)
-       {
-           for (int i = 0; i < rows1; i++)
-           {
-               for (int jj = j; jj < fmin(j + block_size, cols2); jj++)
-               {
-                   for (int kk = k; kk < fmin(k + block_size, cols1); kk++)
-                   {
-                       result[i*cols2 + jj] += m1[i*cols1 + kk] * m2[kk*cols2 + jj];
-                   }
-               }
-           }
-       }
-   }
-   */
 }
 
 
@@ -110,5 +90,4 @@ void multiply_short_simd(int16_t *m1, int rows1, int cols1, int16_t *m2, int row
             }
         }
     }
-    // 
 }
