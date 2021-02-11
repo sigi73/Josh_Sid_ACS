@@ -93,22 +93,21 @@ void multiply_short_simd(int16_t *m1, int rows1, int cols1, int16_t *m2, int row
         for (int k = 0; k < cols1; k++)
         {
             int j;
-            for (j = 0; j < cols2; j += simd_width)
+            // 16*floor(cols/16)
+            int j_max = (cols2 >> 4) << 4;
+            for (j = 0; j < j_max; j += simd_width)
             {
                 //result[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
                 __m256i out = _mm256_loadu_si256((__m256i *)(result + i*cols2 + j));
                 __m256i in1 = _mm256_loadu_si256((__m256i *)(m2 + k*cols2 + j));
                 __m256i in2 = _mm256_set1_epi16(m1[i*cols1 + k]);
                 out = _mm256_add_epi16(out, _mm256_mullo_epi16(in1, in2));
-                _mm256_store_si256((__m256i *)(result + i*cols2 + j), out);
+                _mm256_storeu_si256((__m256i *)(result + i*cols2 + j), out);
             }
-            // TODO: handle non even multiples of simd width
-            /*
-            for (j -= simd_width; j < cols2; j ++)
+            for (; j < cols2; j ++)
             {
                 result[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
             }
-            */
         }
     }
     // 

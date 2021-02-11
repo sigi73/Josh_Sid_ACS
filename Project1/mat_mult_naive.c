@@ -66,9 +66,9 @@ void main()
 
 
     printf("Starting %d x %d block\n", SIZE, SIZE);
-    //clear_mat(result, SIZE, SIZE);
+    clear_mat(result, SIZE, SIZE);
     gettimeofday(&time_start, NULL);
-    multiply_short_block(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, 2048, result);
+    multiply_short_block(matrix1, SIZE, SIZE, matrix2, SIZE, SIZE, 1024, result);
     gettimeofday(&time_end, NULL);
     multiply_time = 1000000LL * (time_end.tv_sec  - time_start.tv_sec) + (time_end.tv_usec - time_start.tv_usec);
 	printf("%lld\n", multiply_time);
