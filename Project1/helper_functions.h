@@ -3,9 +3,14 @@
 
 #include <stdint.h>
 
-//float *create_random_float_mat(int rows, int cols);
-//void free_float_mat(float **mat);
-//void print_float_mat(float **mat);
+// float *create_random_float_mat(int rows, int cols);
+// void free_float_mat(float **mat);
+// void print_float_mat(float **mat);
+
+float *create_float_mat(int rows, int cols);
+float *create_random_float_mat(int rows, int cols);
+void print_float_mat(float *mat, int rows, int cols);
+void clear_float_mat(float *mat, int rows, int cols);
 
 int16_t *create_short_mat(int rows, int cols);
 int16_t *create_random_short_mat(int rows, int cols);
