@@ -52,7 +52,7 @@ void main()
 
     float *matrix3 = create_random_float_mat(3, 2);
     float *matrix4 = create_random_float_mat(2, 3);
-    float *result2 = create_random_float_mat(3, 3);
+    float *result2 = create_float_mat(3, 3);
 
     printf("Matrix 3\n");
     print_float_mat(matrix3, 3, 2);
