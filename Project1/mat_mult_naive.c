@@ -63,7 +63,7 @@ void main()
     printf("----\n");
     print_float_mat(result2, 3, 3);
     clear_float_mat(result2, 3, 3);
-
+  
     multiply_float_block(matrix3, 3, 2, matrix4, 2, 3, 2, result2);
     printf("----\n");
     print_float_mat(result2, 3, 3);

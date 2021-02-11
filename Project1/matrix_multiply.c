@@ -73,26 +73,6 @@ void multiply_short_block(int16_t *m1, int rows1, int cols1, int16_t *m2, int ro
             }
         }
     }
-
-    /*
-   int count = 0;
-   for (int k = 0; k < cols1; k += block_size)
-   {
-       for (int j = 0; j < cols2; j += block_size)
-       {
-           for (int i = 0; i < rows1; i++)
-           {
-               for (int jj = j; jj < fmin(j + block_size, cols2); jj++)
-               {
-                   for (int kk = k; kk < fmin(k + block_size, cols1); kk++)
-                   {
-                       result[i*cols2 + jj] += m1[i*cols1 + kk] * m2[kk*cols2 + jj];
-                   }
-               }
-           }
-       }
-   }
-   */
 }
 void multiply_float_block(float *m1, int rows1, int cols1, float *m2, int rows2, int cols2, int block_size, float *result)
 {
@@ -139,23 +119,21 @@ void multiply_short_simd(int16_t *m1, int rows1, int cols1, int16_t *m2, int row
         for (int k = 0; k < cols1; k++)
         {
             int j;
-            for (j = 0; j < cols2; j += simd_width)
+            // 16*floor(cols/16)
+            int j_max = (cols2 >> 4) << 4;
+            for (j = 0; j < j_max; j += simd_width)
             {
                 //result[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
                 __m256i out = _mm256_loadu_si256((__m256i *)(result + i*cols2 + j));
                 __m256i in1 = _mm256_loadu_si256((__m256i *)(m2 + k*cols2 + j));
                 __m256i in2 = _mm256_set1_epi16(m1[i*cols1 + k]);
                 out = _mm256_add_epi16(out, _mm256_mullo_epi16(in1, in2));
-                _mm256_store_si256((__m256i *)(result + i*cols2 + j), out);
+                _mm256_storeu_si256((__m256i *)(result + i*cols2 + j), out);
             }
-            // TODO: handle non even multiples of simd width
-            /*
-            for (j -= simd_width; j < cols2; j ++)
+            for (; j < cols2; j ++)
             {
                 result[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
             }
-            */
         }
     }
-    // 
 }
