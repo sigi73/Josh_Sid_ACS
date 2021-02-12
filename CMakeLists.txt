@@ -16,12 +16,12 @@ project(Josh_Sid_ACS VERSION 0.1.0)
 
 SET(CMAKE_C_FLAGS  "${CMAKE_CFLAGS} -march=native")
 
-add_executable(project1_naive Project1/mat_mult_naive.c Project1/helper_functions.c Project1/matrix_multiply.c)
-add_executable(project1_simd Project1/mat_mult_simd.c Project1/helper_functions.c Project1/matrix_multiply.c)
+add_executable(project1_test_short Project1/test_short_multiply.c Project1/helper_functions.c Project1/matrix_multiply.c)
+add_executable(project1_test_float Project1/test_float_multiply.c Project1/helper_functions.c Project1/matrix_multiply.c)
 
 
-target_link_libraries(project1_naive m)
-target_link_libraries(project1_simd m)
+target_link_libraries(project1_test_short m)
+target_link_libraries(project1_test_float m)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
