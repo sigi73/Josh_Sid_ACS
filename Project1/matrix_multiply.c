@@ -137,3 +137,37 @@ void multiply_short_simd(int16_t *m1, int rows1, int cols1, int16_t *m2, int row
         }
     }
 }
+
+
+void multiply_float_simd(float *m1, int rows1, int cols1, float *m2, int rows2, int cols2, float *result)
+{
+    if (cols1 != rows2)
+    {
+        // TODO: Add error message exit(1);
+    }
+   
+    int simd_width = 256/32; //256 bit SIMD, 32 bit floats
+
+    for (int i = 0; i < rows1; i++)
+    {
+        for (int k = 0; k < cols1; k++)
+        {
+            int j;
+            // 16*floor(cols/16)
+            int j_max = (cols2 >> 4) << 4;
+            for (j = 0; j < j_max; j += simd_width)
+            {
+                //result[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
+                __m256 out = _mm256_loadu_ps(result + i*cols2 + j);
+                __m256 in1 = _mm256_loadu_ps(m2 + k*cols2 + j);
+                __m256 in2 = _mm256_set1_ps(m1[i*cols1 + k]);
+                out = _mm256_fmadd_ps(in1, in2, out);
+                _mm256_storeu_ps(result + i*cols2 + j, out);
+            }
+            for (; j < cols2; j ++)
+            {
+                result[i * cols2 + j] += m1[i*cols1 + k] * m2[k*cols2 + j];
+            }
+        }
+    }
+}

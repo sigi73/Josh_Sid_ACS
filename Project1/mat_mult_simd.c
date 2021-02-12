@@ -54,6 +54,7 @@ void main()
     free(matrix2);
     free(result);
 
+/*
     struct timeval time_start;
 	struct timeval time_end;
 
@@ -83,4 +84,29 @@ void main()
     free(matrix2);
 
     printf("Finished %d x %d\n", SIZE, SIZE);
+    */
+
+
+    SIZE = 8;
+    float *matrix1_float, *matrix2_float, *result_float;
+    matrix1_float = create_float_mat(SIZE, SIZE);
+    matrix2_float = create_float_mat(SIZE, SIZE);
+    result_float = create_float_mat(SIZE, SIZE);
+
+    for (int i = 0; i < SIZE*SIZE; i++)
+    {
+        matrix1_float[i] = 1.1;
+        matrix2_float[i] = 2.5;
+    }
+    multiply_float_simd(matrix1_float, SIZE, SIZE, matrix2_float, SIZE, SIZE, result_float);
+    print_float_mat(result_float, SIZE, SIZE);
+
+    clear_float_mat(result_float, SIZE, SIZE);
+    for (int i = 0; i < SIZE*SIZE; i++)
+    {
+        matrix1_float[i] = 1.25*i;
+        matrix2_float[i] = 0.5*i;
+    }
+    multiply_float_simd(matrix1_float, SIZE, SIZE, matrix2_float, SIZE, SIZE, result_float);
+    print_float_mat(result_float, SIZE, SIZE);
 }
