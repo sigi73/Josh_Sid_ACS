@@ -2,6 +2,46 @@
 
 
 
+## Implementation 
+
+### Matrices
+2D matrices of size NxM are represented as 1 dimensional C arrays of length N*M. The arrays are stored in row major form, meaning access to row n, column m is at the (n*M+m) offset from the base. This means that matrix elements in the same row are contiguous in memory, but elements in the same column are not contiguous in memory. Matrices are passed to all functions with a height and width parameter.
+
+### Helper Functions
+Several helper functions were created for working with matrices, found in `helper_functions.c` and `helper_functions.h`.  Each function has a short and floating point version. If this project were expanded into a full matrix multiplication library, duplication and  boilerplate code could be reduced by macro generation. Each function is listed below for the short variables, but note a version for float exists as well.
+
+ - `float *create_float_mat(int rows, int cols)`
+	 - Creates an floating point matrix of the desired shape initialized to 0.
+ - `float *create_random_float_mat(int rows, int cols)`
+	 - Creates an floating point matrix of the desired shape initialized to random numbers.
+ - `void print_float_mat(float *mat, int rows, int cols)`
+	 - Prints the matrix to the console
+ - `void clear_float_mat(float *mat, int rows, int cols)`
+	 - Sets all matrix elements to 0
+
+### Matrix Multiply Functions
+The matrix multiplication functions used are implemented in `matrix_multiply.c` and `matrix_multiply.h`. There are three implementations for each variable type: naive, block (cache-optimized), and simd. The implementation of each is described below.
+
+- Naive
+	- TODO
+- Block (cache optimized)
+	- TODO
+- SIMD
+	- TODO
+
+### Test files
+
+3 test files were created for testing correctness of matrix multiplication, and evaluating running time.
+
+- `test_float_multiply.c`is used to test the floating point matrix multiplication. Several arrays are multiplied together and the results are compared to an expected output. Expected output was created using the `test_multiply.py` script.
+- `test_short_multiply.c`is used to test the short matrix multiplication. Several arrays are multiplied together and the results are compared to an expected output. Expected output was created using the `test_multiply.py` script.
+- `custom_matrix.c` is used to prompt the user to enter data type, matrix sizes, and multiplication implementation then reports the time taken for the method.
+
+## Compiling the Code
+TODO
+
+## Test Results
+
 | Matrix Sizes  | Int Naive Time(s)	| Int Block Time(s) |	Int SIMD Time(s) |	Float Naive Time(s) |	Float Block Time(s) |	Float SIMD Time(s) |	 
 | :---          |  :----:   |  :----:   |  :----:  |   :----:   |   :----:   |   :----:   | 
 | 10 x 10	      | 0.000003	| 0.000004	|0.000002	 | 0.000001	  | 0.000005	 | 0.000002   |
