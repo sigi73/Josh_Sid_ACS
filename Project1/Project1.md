@@ -38,7 +38,12 @@ The matrix multiplication functions used are implemented in `matrix_multiply.c` 
 - `custom_matrix.c` is used to prompt the user to enter data type, matrix sizes, and multiplication implementation then reports the time taken for the method.
 
 ## Compiling the Code
-TODO
+
+### cmake on Linux
+
+### cmake on Windows
+
+### gcc on Linux
 
 ## Test Results
 
