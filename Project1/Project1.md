@@ -47,6 +47,9 @@ The matrix multiplication functions used are implemented in `matrix_multiply.c` 
 
 ## Test Results
 
+
+The following data represents the time for completion of each of the desired data types and the multiplication meathod used. These tests were ran on an i7-8700k overclocked to 4.5GHz. Every multiplication for this test was done between 2 equally sized matrices. For the block multiplication, different powers of 2 were used amd are noted in a seperate table. Any other sized block may have different effects on the running time. All of this data is approximate and results may very slightly based on other applications running at the same time as execution. 
+
 | Matrix Sizes  | Int Naive Time(s)	| Int Block Time(s) |	Int SIMD Time(s) |	Float Naive Time(s) |	Float Block Time(s) |	Float SIMD Time(s) |	 
 | :---          |  :----:   |  :----:   |  :----:  |   :----:   |   :----:   |   :----:   | 
 | 10 x 10	      | 0.000003	| 0.000004	|0.000002	 | 0.000001	  | 0.000005	 | 0.000002   |
@@ -65,7 +68,10 @@ The matrix multiplication functions used are implemented in `matrix_multiply.c` 
 | 1000 x 1000   |	128	| 
 | 2500 x 2500   |	256	| 
 | 5000 x 5000   |	512	| 
-| 10000 x 10000 | 2048 | 
-<img src="https://media.discordapp.net/attachments/366025595257225229/810259659239718920/unknown.png" width="500">
+| 10000 x 10000 | 2048 |
 
-<img src="https://media.discordapp.net/attachments/366025595257225229/810259773479714816/unknown.png" width="500">
+From the results of these tests, the difference of running time of all of these different multiplication for both 2-byte fixed-point and 4-byte floating point are all negligible for most situations until the multiplication between two 2500 x 2500 matrices. At this point, for the 2-byte fixed-point matricies, the naive and the SIMD multiplications execute at around the same speed until they diverge at the 5000 x 5000 matrix multiplication. Here the SIMD multiplication is trending to be faster than the naive but is still slower than the block multiplication for the current scale. For the 4-byte floating-point multiplications, the overall trend is the same as the 2-byte fixed-point multiplications. The one major difference is that the SIMD multiplication for the 4-byte floating-point matrices is faster than the block multiplication for the 10000 x 10000 matrix multiplication. Looking at this trend, the SIMD multiplication fot the 2-byte fixed-point may become faster than the block multiplication for larger matrices. 
+
+<img src="https://media.discordapp.net/attachments/366025595257225229/810259659239718920/unknown.png" width="800">
+
+<img src="https://media.discordapp.net/attachments/366025595257225229/810259773479714816/unknown.png" width="800">
