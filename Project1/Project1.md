@@ -22,7 +22,7 @@ Several helper functions were created for working with matrices, found in `helpe
 	 - Sets all matrix elements to 0
 
 ### Matrix Multiply Functions
-The matrix multiplication functions used are implemented in `matrix_multiply.c` and `matrix_multiply.h`. There are three implementations for each variable type: naive, block (cache-optimized), and simd. The implementation of each is described below.
+The matrix multiplication functions used are implemented in `matrix_multiply.c` and `matrix_multiply.h`. There are three implementations for each variable type: naive, block (cache-optimized), and simd. The implementation of each is described below. Note, the multiplication functions require that the result matrix is all zeros. This is not done in the multiplication function for timing reasons. 
 
 - Naive
 	- The naive implementation makes use of 3 nested for loops. The i and j indices are used to index into the destination array. The k index is used to index across the columns of the first matrix and the rows of the second matrix. The j index is kept as the innermost loop as a minor optimization since it refers to adjacent memory locations in the destination array.
