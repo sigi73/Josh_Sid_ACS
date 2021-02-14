@@ -9,7 +9,6 @@
 //creates empty matrix of 2 byte ints of size rows x cols
 int16_t *create_short_mat(int rows, int cols)
 {
-    // TODO: Handle calloc failure
     int16_t *matrix = calloc(rows * cols, sizeof(int16_t));
     return matrix;
 }
@@ -19,7 +18,7 @@ int16_t *create_random_short_mat(int rows, int cols)
 {
     srand(RAND_SEED);
     int16_t *matrix = create_short_mat(rows, cols);
-    for (int i = 0; i < rows * cols; i++)
+    for (int i = 0; i < rows * cols;++)
     {
         int rand_num = rand();
         matrix[i] = (rand() % (SHRT_MAX + 1 - SHRT_MIN)) + SHRT_MIN; 
@@ -29,7 +28,6 @@ int16_t *create_random_short_mat(int rows, int cols)
 //generate empty matrix of float
 float *create_float_mat(int rows, int cols)
 {
-    // TODO: Handle calloc failure
     float *matrix = calloc(rows * cols, sizeof(float));
     return matrix;
 }

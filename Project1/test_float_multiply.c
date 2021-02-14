@@ -59,6 +59,8 @@ int test_mult(float *m1, int r1, int c1, float *m2, int r2, int c2, int block_si
     }
     clear_float_mat(result, r1, c2);
 
+    free(result);
+
     return output;
 }
 
@@ -105,4 +107,8 @@ void main()
     {
         printf("Test case 2 passed\n");
     }
+
+    free(m1);
+    free(m2);
+    free(expected_result);
 }

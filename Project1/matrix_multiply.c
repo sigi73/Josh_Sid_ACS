@@ -11,7 +11,7 @@ void multiply_short_naive(int16_t *m1, int rows1, int cols1, int16_t *m2, int ro
 {
     if (cols1 != rows2)
     {
-        // TODO: Add error message
+        printf("ERROR: Invalid dimensions");
         exit(1);
     }
 
@@ -30,7 +30,7 @@ void multiply_float_naive(float *m1, int rows1, int cols1, float *m2, int rows2,
 {
     if (cols1 != rows2)
     {
-        // TODO: Add error message
+        printf("ERROR: Invalid dimensions");
         exit(1);
     }
 
@@ -50,7 +50,7 @@ void multiply_short_block(int16_t *m1, int rows1, int cols1, int16_t *m2, int ro
 {
     if (cols1 != rows2)
     {
-        // TODO: Add error message
+        printf("ERROR: Invalid dimensions");
         exit(1);
     }
 
@@ -78,7 +78,7 @@ void multiply_float_block(float *m1, int rows1, int cols1, float *m2, int rows2,
 {
     if (cols1 != rows2)
     {
-        // TODO: Add error message
+        printf("ERROR: Invalid dimensions");
         exit(1);
     }
 
@@ -108,7 +108,7 @@ void multiply_short_simd(int16_t *m1, int rows1, int cols1, int16_t *m2, int row
 {
     if (cols1 != rows2)
     {
-        // TODO: Add error message
+        printf("ERROR: Invalid dimensions");
         exit(1);
     }
 
@@ -143,7 +143,8 @@ void multiply_float_simd(float *m1, int rows1, int cols1, float *m2, int rows2, 
 {
     if (cols1 != rows2)
     {
-        // TODO: Add error message exit(1);
+        printf("ERROR: Invalid dimensions");
+        exit(1);
     }
    
     int simd_width = 256/32; //256 bit SIMD, 32 bit floats
