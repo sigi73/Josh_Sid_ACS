@@ -50,6 +50,13 @@ The matrix multiplication functions used are implemented in `matrix_multiply.c` 
 5. Run the executables created
 
 ### cmake on Windows
+1. This method assumes you are using VSCode. If not using VSCode, it is reccomended that you try the gcc on Linux instructions.
+2. Follow the intstructions on https://code.visualstudio.com/docs/cpp/CMake-linux#_select-a-kit and ensure you meet all of the prerequisites
+	1. In your terminal you will also neef to install cmake
+	2. When done with the preqrequsites, skip to "select a kit"
+	3. Select release for the varient and choose whichever kit available
+3. If done correctly so far, there should be a selection bewtween which file you would like to run
+4. Build then tun the code from the commands on the bottom bar of VSCode
 
 ### gcc on Linux (if cmake is not installed)
 1. Change to the `Project 1` directory
