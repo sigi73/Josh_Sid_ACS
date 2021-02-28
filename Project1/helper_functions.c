@@ -18,7 +18,7 @@ int16_t *create_random_short_mat(int rows, int cols)
 {
     srand(RAND_SEED);
     int16_t *matrix = create_short_mat(rows, cols);
-    for (int i = 0; i < rows * cols;++)
+    for (int i = 0; i < rows * cols; i++)
     {
         int rand_num = rand();
         matrix[i] = (rand() % (SHRT_MAX + 1 - SHRT_MIN)) + SHRT_MIN; 
