@@ -20,10 +20,14 @@ add_executable(project1_test_short Project1/test_short_multiply.c Project1/helpe
 add_executable(project1_test_float Project1/test_float_multiply.c Project1/helper_functions.c Project1/matrix_multiply.c)
 add_executable(project1_test_custom Project1/custom_matrix.c Project1/helper_functions.c Project1/matrix_multiply.c)
 
-
 target_link_libraries(project1_test_short m)
 target_link_libraries(project1_test_float m)
 target_link_libraries(project1_test_custom m)
+
+
+add_executable(project2_test Project2/create_threads.c)
+
+target_link_libraries(project2_test pthread m z)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
