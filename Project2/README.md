@@ -75,15 +75,53 @@ $ ./project2 1G_base64.txt 4
 The code was run using a 10GB input file. The file was placed on three different storage mediums, a Hard Disk Drive (HDD), Solid State Drive (SSD), and in a RAMdisk. The results for each are shown below
 
 ### HDD
-TODO: Insert tables and graphs
+| Number of Threads  | Time to compress (in seconds)	| 
+| :----:        |  :----:   | 
+| 1      | 239.467s |
+| 2    | 138.566s	| 
+| 3	    | 130.285s	|
+| 4   |	129.537s	| 
+| 5   |	130.389s	| 
+| 6   |	130.53s	| 
+| 7 | 132.367s |
+| 8 | 136.381s |
+| 9 | 136s |
+| 10 | 142.316s |
+<img src="https://media.discordapp.net/attachments/366025595257225229/815787133280452629/unknown.png" width="700">
+
 
 ### SSD
-TODO: Insert tables and graphs
+| Number of Threads  | Time to compress (in seconds)	| 
+| :----:        |  :----:   | 
+| 1      | 231.653s |
+| 2    | 119.898s	| 
+| 3	    | 94.17s	|
+| 4   |	87.135s	| 
+| 5   |	78.645s | 
+| 6   |	80.589s	| 
+| 7 | 80.251s |
+| 8 | 80.989s |
+| 9 | 99.269s |
+| 10 | 105.338s |
+<img src="https://cdn.discordapp.com/attachments/366025595257225229/815787290823229450/unknown.png" width="700">
+
 
 ### Ramdisk
-TODO: Insert tables and graphs
+| Number of Threads  | Time to compress (in seconds)	| 
+| :----:        |  :----:   | 
+| 1      | 228.746s |
+| 2    | 120.496s	| 
+| 3	    | 99.129s	|
+| 4   |	82.042s	| 
+| 5   |	73.921s| 
+| 6   |	67.746s	| 
+| 7 | 71.185s |
+| 8 | 78.73s |
+| 9 | 83.076s |
+| 10 | 88.41s |
+<img src="https://cdn.discordapp.com/attachments/366025595257225229/815787516770779146/unknown.png" width="700">
 
 ### Analysis and Conclusion
-TODO: Best number of threads for each case.
+One noticable trend for every storage medium tested on is that the performance of the compression does not always improve as the number of threads increases. For the HDD the trend is less noticible but for every medium, the peak performance is around the 4-7 thread count. This trend of diminishing returns is most likely do to the amount of processing power it takes to compute that many threads at once and spliting to more than what the processor can handel would thereby increase the time to compress. If the processor had more logic cores in it, the time for processing may continue to improve with more than 4-7 threads but that cannot be tested at this time. 
 
 We observe that the performance scales much better with number of threads when the input file is on a faster storage medium. This suggests that, unsurprisingly, compression is not compute but IO bound. Most of the time is spent getting the data to and from the storage medium, and therefore not as much performance improvement is seen from increasing the level of parallelism.
