@@ -84,4 +84,6 @@ TODO: Insert tables and graphs
 TODO: Insert tables and graphs
 
 ### Analysis and Conclusion
-TODO: After creating tables and graphs
+TODO: Best number of threads for each case.
+
+We observe that the performance scales much better with number of threads when the input file is on a faster storage medium. This suggests that, unsurprisingly, compression is not compute but IO bound. Most of the time is spent getting the data to and from the storage medium, and therefore not as much performance improvement is seen from increasing the level of parallelism.
