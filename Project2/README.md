@@ -1,13 +1,14 @@
+
 # File Compression with Multiple Threads
 
 ## Implementation
 
 ### Overview
-This program makes use of the linux pthread library for multithreaded programming. Per the assignment instructions, the input file is divided into 4096 byte blocks for seperate threads to compress using the zlib library. The compressed results are then combined into an output file using an output thread.
+This program makes use of the linux pthread library for multithreaded programming. Per the assignment instructions, the input file is divided into 4096 byte blocks for separate threads to compress using the zlib library. The compressed results are then combined into an output file using an output thread.
 
 The input file is read using mmap as a read only file to load the file into memory. Since mmap is used as `O_RDONLY`, `PROT_READ`, and `MAP_PRIVATE`, sections of the file are only loaded into memory as needed, not all at once. This means that files larger than the available memory can be compressed without issue.
 
-The main thread dispatches compression tasks to the worker threads using the `job_ll` data structure. This structure is an element of a linked list, and the resoning for this is described below. An output thread takes completed jobs, and outputs them in the correct order to the output file.
+The main thread dispatches compression tasks to the worker threads using the `job_ll` data structure. This structure is an element of a linked list, and the reasoning for this is described below. An output thread takes completed jobs, and outputs them in the correct order to the output file.
 
 ### Job Data Structure
 Worker threads are assigned jobs using the `job_ll` data structure.
@@ -48,8 +49,8 @@ typedef struct worker_args_t {
 } worker_args
 ```
 
-### Ouput thread
-The output thread reads repeatedley through the list of jobs, and outputs the blocks in order. As blocks have been outputted, their corresponding jobs can then be re-used by the main thread for new jobs for worker threads. This system minimizes the downtime for worker threads, by giving them new jobs immediately while making sure that the blocks are still output in the correct order. This comes at the cost of higher memory use.
+### Output thread
+The output thread reads repeatedly through the list of jobs, and outputs the blocks in order. As blocks have been outputted, their corresponding jobs can then be re-used by the main thread for new jobs for worker threads. This system minimizes the downtime for worker threads, by giving them new jobs immediately while making sure that the blocks are still output in the correct order. This comes at the cost of higher memory use.
 
 ## Compiling and Running the Code
 
@@ -72,7 +73,7 @@ $ ./project2 1G_base64.txt 4
 ```
 
 ## Test Results
-The code was run using a 10GB input file. The file was placed on three different storage mediums, a Hard Disk Drive (HDD), Solid State Drive (SSD), and in a RAMdisk. The results for each are shown below
+The code was run using a 10GB input file, running on an Intel i7 6700K (4 cores/8 threads). The file was placed on three different storage mediums, a Hard Disk Drive (HDD), Solid State Drive (SSD), and in a RAMdisk. The results for each are shown below
 
 ### HDD
 | Number of Threads  | Time to compress (in seconds)	| 
@@ -122,6 +123,6 @@ The code was run using a 10GB input file. The file was placed on three different
 <img src="https://cdn.discordapp.com/attachments/366025595257225229/815787516770779146/unknown.png" width="700">
 
 ### Analysis and Conclusion
-One noticable trend for every storage medium tested on is that the performance of the compression does not always improve as the number of threads increases. For the HDD the trend is less noticible but for every medium, the peak performance is around the 4-7 thread count. This trend of diminishing returns is most likely do to the amount of processing power it takes to compute that many threads at once and spliting to more than what the processor can handel would thereby increase the time to compress. If the processor had more logic cores in it, the time for processing may continue to improve with more than 4-7 threads but that cannot be tested at this time. 
+One noticeable trend for every storage medium tested on is that the performance of the compression does not always improve as the number of threads increases. For the HDD the trend is less noticeable but for every medium, the peak performance is around the 4-7 thread count. When the file is stored on the HDD, it caps much sooner than the SSD, which caps sooner than the RAMDISK.
 
-We observe that the performance scales much better with number of threads when the input file is on a faster storage medium. This suggests that, unsurprisingly, compression is not compute but IO bound. Most of the time is spent getting the data to and from the storage medium, and therefore not as much performance improvement is seen from increasing the level of parallelism.
+This suggests that, unsurprisingly, compression is not compute but IO bound. Most of the time is spent getting the data to and from the storage medium, and therefore not as much performance improvement is seen from increasing the level of parallelism. It is more important for the data to be able to get to the CPU quickly than for it to be processed in parallel. This hypothesis is also supported by the fact that the scaling is severely non-linear, suggesting that computation speed is not the main bottleneck. It may be more useful to parallelize more complex compression algorithms that could result in higher levels of compression, at the cost of higher computation time. Parallelizing a more computational heavy task would result in a greater performance gain.
