@@ -25,9 +25,10 @@ target_link_libraries(project1_test_float m)
 target_link_libraries(project1_test_custom m)
 
 
-add_executable(project2_test Project2/create_threads.c)
+add_executable(project2 Project2/compression.c)
 
-target_link_libraries(project2_test pthread m z)
+target_link_libraries(project2 pthread m z)
+
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
