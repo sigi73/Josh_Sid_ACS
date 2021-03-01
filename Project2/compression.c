@@ -334,7 +334,7 @@ int main(int argc, char *argv[])
     }
 
     // TODO: Check for mmap errors
-    // Map the input file as a memory region. Since file is O_RDONLY, PROT_READ, and MAP_PRIVATEm
+    // Map the input file as a memory region. Since file is O_RDONLY, PROT_READ, and MAP_PRIVATE
     // it will only load into memory segments as they are needed
     uint8_t *data = mmap(NULL, statbuf.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
 
