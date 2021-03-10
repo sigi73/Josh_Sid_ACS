@@ -1,6 +1,6 @@
-#rm *.log
-#rm *-job-*
-#fio fio_jobs
+rm -f *.log
+rm -f *-job-*
+fio fio_jobs
 python plot.py read-4k_bw.1.log read-4k_lat.1.log "Intel SSD 530 Read Only 4kB Latency vs BW" "Latency (usecs)" "Bandwidth (KB/sec)" read_4k.png
 python plot.py read-32k_bw.2.log read-32k_lat.2.log "Intel SSD 530 Read Only 32kB Latency vs BW" "Latency (usecs)" "Bandwidth (KB/sec)" read_32k.png
 python plot.py write-4k_bw.3.log write-4k_lat.3.log "Intel SSD 530 Write Only 4kB Latency vs BW" "Latency (usecs)" "Bandwidth (KB/sec)" write_4k.png
