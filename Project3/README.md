@@ -57,7 +57,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 9000 | 44.98 | 2052.9 |
 | 20000 | 44.25 | 1740.5 |
 
-![](Memory Test - Read Only Traffic - 64B - Latency vs Bandwidth.png)
+![](Memory%20Test%20-%20Read%20Only%20Traffic%20-%2064B%20-%20Latency%20vs%20Bandwidth.png)
 
 ### Loaded Latencies for Memory - 2:1 Read:Write, 64B
 | Delay    | Latency (ns) | Bandwidth (MB/sec) |
@@ -82,7 +82,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 |     9000 |        57.09 |             2034.6 |
 |    20000 |        45.52 |             1830.6 |
 
-![](Memory Test - 100% Non-Temporal Write Traffic - 64B - Latency vs Bandwidth.png)
+![](Memory%20Test%20-%202_1%20Read_Write%20Traffic%20-%2064B%20-%20Latency%20vs%20Bandwidth.png)
 
 ### Loaded Latencies for Memory - 100% Non-Temporal Write. 64B
 | Delay    | Latency (ns) | Bandwidth (MB/sec) |
@@ -107,7 +107,8 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 |     9000 |        57.09 |             2034.6 |
 |    20000 |        45.52 |             1830.6 |
 
-![](Memory Test - 2_1 Read_Write Traffic - 64B - Latency vs Bandwidth.png)
+
+![](Memory%20Test%20-%20100\%%20Non-Temporal%20Write%20Traffic%20-%2064B%20-%20Latency%20vs%20Bandwidth.png)
 
 ### Loaded Latencies for Memory - Read only, 256B
 
@@ -133,7 +134,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 9000  | 51.42        | 1864.4             |
 | 20000 | 54.03        | 1464.9             |
 
-![](Memory Test - Read Only Traffic - 256B - Latency vs Bandwidth.png)
+![](Memory%20Test%20-%20Read%20Only%20Traffic%20-%20256B%20-%20Latency%20vs%20Bandwidth.png)
 
 ### Loaded Latencies for Memory - 2:1 Read:Write, 64B
 
@@ -159,7 +160,8 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 9000  | 46.22        | 2320.8             |
 | 20000 | 48.35        | 1736.3             |
 
-![](Memory Test - 100% Non-Temporal Write Traffic - 256B - Latency vs Bandwidth.png)
+![](Memory%20Test%20-%202_1%20Read_Write%20Traffic%20-%20256B%20-%20Latency%20vs%20Bandwidth.png)
+
 
 ### Loaded Latencies for Memory - 100% Non-Temporal Write. 64B
 
@@ -185,7 +187,8 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 9000  | 45.7         | 1556.6             |
 | 20000 | 46.3         | 1453.1             |
 
-![](Memory Test - 2_1 Read_Write Traffic - 256B - Latency vs Bandwidth.png)
+
+![](Memory%20Test%20-%20100\%%20Non-Temporal%20Write%20Traffic%20-%20256B%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD Random Read - 4kB Block Size
 
@@ -203,7 +206,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 36450.56771       | 20083.5098     |
 | 62741.85295       | 19802          |
 
-![](Disk Test - Read Only Traffic - 4kb Block Size - Latency vs Bandwidth.png)
+![](Disk%20Test%20-%20Read%20Only%20Traffic%20-%204kb%20Block%20Size%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD Random Write - 4kB Block Size
 
@@ -221,7 +224,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 436942.7172        | 5627.48913      |
 | 885823.5433        | 5494.746032     |
 
-![](Disk Test - Write Only Traffic - 4kb Block Size - Latency vs Bandwidth.png)
+![](Disk%20Test%20-%20Write%20Only%20Traffic%20-%204kb%20Block%20Size%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD Random Read/Write - 4kB Block Size
 
@@ -239,7 +242,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 160502.0788       | 3976.122137    | 265753.6778        | 3969.40458      |
 | 240284.4302       | 3911.396947    | 530481.7959        | 3926.480916     |
 
-![](Disk Test - Read-Write Traffic - 4kb Block Size - Latency vs Bandwidth.png)
+![](Disk%20Test%20-%20Read-Write%20Traffic%20-%204kb%20Block%20Size%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD Random Read - 32kB Block Size
 
@@ -257,7 +260,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 104326.857        | 44794.18182    |
 | 236622.2544       | 43720.72727    |
 
-![](Disk Test - Read Only Traffic - 32kb Block Size - Latency vs Bandwidth.png)
+![](Disk%20Test%20-%20Read%20Only%20Traffic%20-%2032kb%20Block%20Size%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD Random Write - 32kB Block Size
 
@@ -275,7 +278,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 910706.5667        | 20532           |
 | 1800895.297        | 20376.51064     |
 
-![](Disk Test - Write Only Traffic - 32kb Block Size - Latency vs Bandwidth.png)
+![](Disk%20Test%20-%20Write%20Only%20Traffic%20-%2032kb%20Block%20Size%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD Random Read/Write - 32kB Block Size
 
@@ -293,7 +296,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 227942.1255       | 13068.02564    | 634840.2099        | 12940.33333     |
 | 363420.9721       | 13106.16216    | 1223884.828        | 13190.91892     |
 
-![](Disk Test - Read-Write Traffic - 32kb Block Size - Latency vs Bandwidth.png)
+![](Disk%20Test%20-%20Read-Write%20Traffic%20-%2032kb%20Block%20Size%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD IOPS
 
