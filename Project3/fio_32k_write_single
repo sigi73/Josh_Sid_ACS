@@ -1,0 +1,11 @@
+[global]
+direct=1
+runtime=240
+ioengine=libaio
+size=512M
+numjobs=1
+bs=32k
+rw=randwrite
+
+[write-job-32k-io16]
+iodepth=16

@@ -18,4 +18,7 @@ fio fio_4k_rw --minimal >> rw_4k.txt
 echo $HEADER > rw_32k.txt
 fio fio_32k_rw --minimal >> rw_32k.txt
 
+fio fio_32k_read_single > iops_read_out.txt
+fio fio_32k_write_single > iops_write_out.txt
+
 rm -f *-job-*
