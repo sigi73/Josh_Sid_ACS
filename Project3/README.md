@@ -1,13 +1,26 @@
 # Memory and Storage Performance Profiling
 ## Test Setups
 ### MLC
-CPU Used: Intel Core i7-8700K
-Memory Specs: `TODO`
+CPU Used: Intel Core i7-8700K 
+
+Memory Specs: CORSAIR Vengeance LPX SDRAM DDR4 3200
 
 In order to collect the data using MLC, the following process was used.
 
-> TODO
+To get the loaded latency, the following command was used.
 
+```mlc --loaded_latency ```
+
+The default execution of this command gives 64B read only.
+In order to change this to the 256B version, ```-Y``` needs to be added to the command like so
+
+```mlc --loaded_latency -Y ```
+
+To change the ratio of reads to writes, ```-Wn``` (where n is a number). For the following additional loaded latancy tests, ```-W2``` and ```-W6``` were used to conduct a 2:1 ratio and 100% non-temporal write tests. These commands were also combined with ```-Y``` in order to give the 256B versions of these tests. So for the 256B test for the 2:1 read to write ratio, the command imputed would be
+
+```mlc --loaded_latency -W2 -Y ```
+
+The combination of these commands were used to get all of the loaded latancy data documentated. More tests could be done however by changing the read to write ratio and by running the 512B versions using ```-Z``` if your CPU supports it.
 
 ### FIO
 CPU Used:
