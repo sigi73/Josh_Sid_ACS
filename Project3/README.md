@@ -12,6 +12,7 @@ In order to collect the data using MLC, the following process was used.
 ### FIO
 CPU Used:
 Disk Specs: [Intel SSD 530 Series](https://ark.intel.com/content/www/us/en/ark/products/75331/intel-ssd-530-series-240gb-2-5in-sata-6gb-s-20nm-mlc.html)
+
  - Sequential read: Up to 540 MB/s
  - Sequential write: Up to 490 MB/s
  - Random read: Up to 41k IOPS
@@ -294,6 +295,15 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 
 ![](Disk Test - Read-Write Traffic - 32kb Block Size - Latency vs Bandwidth.png)
 
+### SSD IOPS
+
+The `--terse` output mode for FIO, which is used to export semicolon separated values to automate data collection and graph creation, does not output the sampled IOPS in the version of FIO we are running. Our version of FIO uses the V3 terse format, but this information is only outputted in the V5 format. As a result, to collect IOPS data, we take the IOPS for peak 32kB read and write bandwidth, and record the average IOPS.
+
+| IO Mode    | Latency (usec) | Bandwidth (kB/s) | IOPS  |
+| ---------- | -------------- | ---------------- | ----- |
+| 32kB Read  | 1228.00        | 389120.00        | 12160 |
+| 32kB Write | 2361.33        | 201488.00        | 6297  |
+
 ## Analysis and Conclusion
 
 ### Overview
@@ -322,5 +332,5 @@ For the disk tests, we observe that the read is again much faster than the write
 
 ### Comparison to Enterprise Intel SSD
 
-The process described above to collect disk performance statistics using FIO used the FIO terse output. Unfortunately, this mode does not output the sampled IOPS for the V3 version of the format, which is the version used by the installed version of FIO. As a result, some test samples were taken of Read and Write IOPS to compare to the reported spec.
+As described above, we don't collect IOPS for each test due to limitations in the `--terse` output format. We observe the peak read IOPS in these tests is about 12k, far less than the rated 41k IOPS for random read. Similarly, the measured 6k IOPS for random write is far less than the rated 80k for random write. Unsurprisingly, the measurements for this disk are far below the rated specifications for the listed enterprise Intel SSD. 
 
