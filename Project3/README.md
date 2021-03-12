@@ -3,7 +3,7 @@
 ### MLC
 CPU Used: Intel Core i7-8700K 
 
-Memory Specs: CORSAIR Vengeance LPX SDRAM DDR4 3200
+Memory Specs:CORSAIR Vengeance LPX SDRAM DDR4 3200 (4 x 8GB)
 
 In order to collect the data using MLC, the following process was used.
 
