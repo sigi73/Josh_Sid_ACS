@@ -108,7 +108,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 |    20000 |        45.52 |             1830.6 |
 
 
-![](Memory%20Test%20-%20100\%%20Non-Temporal%20Write%20Traffic%20-%2064B%20-%20Latency%20vs%20Bandwidth.png)
+![](Memory%20Test%20-%20100%20Non-Temporal%20Write%20Traffic%20-%2064B%20-%20Latency%20vs%20Bandwidth.png)
 
 ### Loaded Latencies for Memory - Read only, 256B
 
@@ -188,7 +188,7 @@ Raw data: https://docs.google.com/spreadsheets/d/1zwgUYmTq6vadqQo92bs4RTT5yU-sI8
 | 20000 | 46.3         | 1453.1             |
 
 
-![](Memory%20Test%20-%20100\%%20Non-Temporal%20Write%20Traffic%20-%20256B%20-%20Latency%20vs%20Bandwidth.png)
+![](Memory%20Test%20-%20100%20Non-Temporal%20Write%20Traffic%20-%20256B%20-%20Latency%20vs%20Bandwidth.png)
 
 ### SSD Random Read - 4kB Block Size
 
