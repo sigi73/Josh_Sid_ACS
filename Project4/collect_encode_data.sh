@@ -6,19 +6,19 @@ NUM_STDEV=0
 OUT_FILE="encode_out_single_threaded.csv"
 
 TIMEFORMAT=%R
-#> $OUT_FILE
-#echo "Number of rows, Time to encode" >> $OUT_FILE
+> $OUT_FILE
+echo "Number of rows, Time to encode" >> $OUT_FILE
 
-#for NUM in "${NUM_MEAN[@]}"
-#do
-    #python gen_input_file.py words_alpha.txt out.txt $COUNTS_MEAN $COUNTS_STDEV $NUM $NUM_STDEV
-    #echo -n `wc -l <out.txt` >> $OUT_FILE
-    #TIME="$(time ( ./a.out out.txt 1 ) 2>&1 1>/dev/null )"
-    #echo -n "," >> $OUT_FILE
-    #echo $TIME >> $OUT_FILE
-    #rm out.txt
-    #echo "Finished $NUM"
-#done
+for NUM in "${NUM_MEAN[@]}"
+do
+    python gen_input_file.py words_alpha.txt out.txt $COUNTS_MEAN $COUNTS_STDEV $NUM $NUM_STDEV
+    echo -n `wc -l <out.txt` >> $OUT_FILE
+    TIME="$(time ( ./a.out out.txt 1 ) 2>&1 1>/dev/null )"
+    echo -n "," >> $OUT_FILE
+    echo $TIME >> $OUT_FILE
+    rm out.txt
+    echo "Finished $NUM"
+done
 
 OUT_FILE="encode_out_threads.csv"
 > $OUT_FILE
