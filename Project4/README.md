@@ -36,7 +36,9 @@ The function `output_file` performs the above described output. `input_fn`is use
 
 
 ## Parser Implementation
-TODO
+There are two main parts to this program, the decoding and querying. Firstly the encoded file generated will be decoded and 2 `std::vector`s will be generated, one containing the words that were in the encoded dictionary, and another one containing how many times the word was repeated. The word and the number of repetitions will be at the same index as each of these `std::vector` should be the exact same size. Due to this fact when you want to find information about the word, only the index of one of the vectors is needed to access the info associated with the same word in the other vector.
+
+When querying, there are two options available. The first option is checking to see if a word exist. This is implemented by a simple linear search with `std::find` through the words and returning an index that is used to find the number of repetitions. This is an O(n) operation at worst. The second option is finding the word at the index of the `std::vector` and displaying it with how many times it was repeated. This is a O(1) operation as it is only needs to point at the index of the vectors twice.
 
 ## Compiling and Running the Code
 
@@ -63,7 +65,8 @@ This generates out_file, which has N unique words, with mean of `mean_words`and 
 To run the encoder, pass the file to be encoded as the first argument, the output filename as the second argument, and the number of threads as the third argument. For example:
 `./project4_encode out.txt encoded.txt 1`will encode `out.txt` into `encoded.txt` and only use 1 thread to parse the file.
 
-TODO: RUNNING THE PARSER
+### Runnning the parser
+To Run the parser, all that is needed is to pass the encoded file that should have been generated previously. For example `./project4_parse encoded.txt` will take the encoded file, decode it, and will prompt you with instructions on querying the file.
 
 ## Encoder Performance Results
 
@@ -96,4 +99,35 @@ We don't see much improvement from the threading. That is likely due to the fact
 This could be improved by changing our encoding format: instead if we had multiple "encoded" files, that would allows us to split up the output step into several threads as well.
 
 ## Parser Performance Results
-TODO
+
+### Decoding
+For a single thread decoding, the folling results were observed when decoded a dictionary that had N number of rows.
+| Number of rows | Time to decode |
+|----------------|----------------|
+|         100000 |          0.006 |
+|        1000000 |          0.053 |
+|       10000000 |          0.558 |
+|      100000000 |          6.031 |
+
+![](decodeplt.JPG)
+
+### Querying (word lookup)
+
+
+| Number of querys| Time to query |
+|----------------|----------------|
+|         1000 |          0.006 |
+|        10000 |          0.47 |
+|       100000 |         44.835 |
+
+![](queryplt.JPG)
+
+### Querying (index lookup)
+| Number of querys| Time to query |
+|----------------|----------------|
+|         1000 |          0.000002 |
+|        10000 |          0.000014 |
+|       100000 |         0.000129 |
+
+### Analysis and Conclusion
+We observed as stated that the decoding and the word look up query are both O(n) as both of the graphs show a linear trend with the exeption of the word lookup query where the graph may be not be the best quality due to the lack of datapoints. The index lookup is O(1) as stated (despite the increase in time, on the same scale as the word lookup this would be a constant line). 
