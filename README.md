@@ -7,4 +7,6 @@ Repository for code for the Advanced Computer Systems class at Rensselaer Polyte
 
 `Project3/`: Investigation of Memory and Disk Bandwidth and Latencies
 
+`Project4/`: Dictionary Encoder implementation for low cardinality data columns
+
 By Joshua Wildfeuer and Siddharth Suri
