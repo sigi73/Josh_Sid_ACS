@@ -35,6 +35,7 @@ add_executable(project4_encode Project4/encode.cpp)
 add_executable(project4_parse Project4/decode.cpp)
 target_link_libraries(project4_encode pthread)
 
+add_executable(final_test FinalProject/kvstore_test.cpp)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
