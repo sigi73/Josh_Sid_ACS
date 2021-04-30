@@ -216,6 +216,7 @@ void KeyValueStore<K, V, H, SK, SV>::print()
 {
     std::shared_lock<std::shared_timed_mutex> lock(access_mutex);
     size_t bin_num = 0;
+    std::cout << num_elements << " elements" << std::endl;
     for (auto const &bin : hash_arr)
     {
         std::cout << bin_num << ": ";
