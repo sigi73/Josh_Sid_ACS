@@ -12,3 +12,10 @@ The in-memory key-value store is a very commonly used indexing data structure fo
 
 
 ## Implementation Details
+
+## Compiling
+### CMake: TODO
+### G++:
+`g++ kvstore_test.cpp jsoncpp.cpp -std=c++11`
+
+`g++ deserialize_test.cpp jsoncpp.cpp -std=c++11`
