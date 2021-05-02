@@ -26,7 +26,7 @@ class KeyValueStore
     bool hasKey(K key);
     std::optional<V> get(K key);
     bool put(K key, V value);
-    bool replace(K key, V value); // Should be easy to add
+    bool replace(K key, V value);
     bool del(K key);
 
     void print();
