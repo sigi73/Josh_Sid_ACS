@@ -43,7 +43,7 @@ class KeyValueStore
     std::vector<std::list<std::pair<K, V>>> hash_arr;
     size_t num_elements;
     size_t hash_arr_size;
-    std::shared_timed_mutex access_mutex;
+    std::shared_mutex access_mutex;
 
     bool should_resize();
     void resize(size_t new_size);
@@ -126,7 +126,7 @@ KeyValueStore<K, V, H, SK, SV>::KeyValueStore(std::string fn)
 template <class K, class V, class H, class SK, class SV>
 bool KeyValueStore<K, V, H, SK, SV>::hasKey(K key)
 {
-    std::shared_lock<std::shared_timed_mutex> lock(access_mutex);
+    std::shared_lock<std::shared_mutex> lock(access_mutex);
     size_t h = hash(key);
     for (ll_itr itr = hash_arr[h].begin(); itr != hash_arr[h].end(); itr++)
     {
@@ -142,7 +142,7 @@ bool KeyValueStore<K, V, H, SK, SV>::hasKey(K key)
 template <class K, class V, class H, class SK, class SV>
 std::optional<V> KeyValueStore<K, V, H, SK, SV>::get(K key)
 {
-    std::shared_lock<std::shared_timed_mutex> lock(access_mutex);
+    std::shared_lock<std::shared_mutex> lock(access_mutex);
     size_t h = hash(key);
     for (ll_itr itr = hash_arr[h].begin(); itr != hash_arr[h].end(); itr++)
     {
@@ -157,7 +157,7 @@ std::optional<V> KeyValueStore<K, V, H, SK, SV>::get(K key)
 template <class K, class V, class H, class SK, class SV>
 bool KeyValueStore<K, V, H, SK, SV>::put(K key, V value)
 {
-    std::unique_lock<std::shared_timed_mutex> lock(access_mutex);
+    std::unique_lock<std::shared_mutex> lock(access_mutex);
     size_t h = hash(key);
     if (hasKey(key))
     {
@@ -179,7 +179,7 @@ bool KeyValueStore<K, V, H, SK, SV>::put(K key, V value)
 template <class K, class V, class H, class SK, class SV>
 bool KeyValueStore<K, V, H, SK, SV>::replace(K key, V value)
 {
-    std::unique_lock<std::shared_timed_mutex> lock(access_mutex);
+    std::unique_lock<std::shared_mutex> lock(access_mutex);
     size_t h = hash(key);
     bool found = false;
     for (ll_itr itr = hash_arr[h].begin(); itr != hash_arr[h].end(); itr++)
@@ -198,7 +198,7 @@ bool KeyValueStore<K, V, H, SK, SV>::replace(K key, V value)
 template <class K, class V, class H, class SK, class SV>
 bool KeyValueStore<K, V, H, SK, SV>::del(K key)
 {
-    std::unique_lock<std::shared_timed_mutex> lock(access_mutex);
+    std::unique_lock<std::shared_mutex> lock(access_mutex);
     size_t h = hash(key);
     for (ll_itr itr = hash_arr[h].begin(); itr != hash_arr[h].end(); itr++)
     {
@@ -215,7 +215,7 @@ bool KeyValueStore<K, V, H, SK, SV>::del(K key)
 template <class K, class V, class H, class SK, class SV>
 void KeyValueStore<K, V, H, SK, SV>::print()
 {
-    std::shared_lock<std::shared_timed_mutex> lock(access_mutex);
+    std::shared_lock<std::shared_mutex> lock(access_mutex);
     size_t bin_num = 0;
     std::cout << num_elements << " elements" << std::endl;
     for (auto const &bin : hash_arr)
@@ -233,7 +233,7 @@ void KeyValueStore<K, V, H, SK, SV>::print()
 template <class K, class V, class H, class SK, class SV>
 void KeyValueStore<K, V, H, SK, SV>::serialize(std::string fn)
 {
-    std::unique_lock<std::shared_timed_mutex> lock(access_mutex);
+    std::unique_lock<std::shared_mutex> lock(access_mutex);
 
     Json::Value root;
     root["num_elements"] = num_elements;
