@@ -1,9 +1,11 @@
 #include "KeyValueStore.h"
 #include "CustomKeyValues.h"
 
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <thread>
 #include <algorithm>
 #include <unistd.h>
 #include <chrono>
@@ -157,12 +159,84 @@ void singleThreadTest3(int insert_number){
    // test3.serialize("out.json");
 }
 
-
-int main()
+void thread_func(KeyValueStore<int, float> &store, int starting_idx, int ending_idx, int replace_idx, int tid)
 {
-    //singleThreadTest1(); //previous two test cases for proof of functionality
+    float num;
+    float LO = -100.f;
+    float HI = 100.f;
+    for (int i = starting_idx; i < ending_idx; i++)
+    {
+        // https://stackoverflow.com/questions/686353/random-float-number-generation
+        num = LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)));
+        store.put(i, num);
+    }
+    store.replace(replace_idx, (float)tid);
+}
+
+
+void multiThreadTest()
+{
+    KeyValueStore<int, float> store(10);
+    std::thread t1(thread_func, std::ref(store), 0, 10, 15, 1);
+    std::thread t2(thread_func, std::ref(store), 10, 20, 25, 2);
+    std::thread t3(thread_func, std::ref(store), 20, 30, 35, 3);
+    std::thread t4(thread_func, std::ref(store), 30, 40, 5, 4);
+
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+
+    store.print();
+}
+
+void usage(char *argv[])
+{
+    std::cout << "Usage:" << std::endl;
+    std::cout << "$ " << argv[0] << " command" << std::endl;
+    std::cout << "\tcommand can be one of the following:" << std::endl;
+    std::cout << "\t\tbasic: run a basic test with standard datatypes" << std::endl;
+    std::cout << "\t\tcustom: run a test with custom datatypes" << std::endl;
+    std::cout << "\t\tperformance: run a performance test" << std::endl;
+    std::cout << "\t\tmultithreaded: run a multithreaded test" << std::endl;
+}
+
+int main(int argc, char *argv[])
+{
+    /*
+    if (argc == 1)
+    {
+        usage(argv);
+    }
+    else
+    {
+        if (strcmp(argv[1], "basic") == 0)
+        {
+            singleThreadTest1();
+        }
+        else if (strcmp(argv[1], "custom") == 0)
+        {
+            singleThreadTest2();
+        }
+        else if (strcmp(argv[1], "performance") == 0)
+        {
+            singleThreadTest3(1000000);
+        }
+        else if (strcmp(argv[1], "multithreaded") == 0)
+        {
+            multiThreadTest();
+        }
+        else
+        {
+            std::cerr << "Command not recognized" << std::endl;
+            usage(argv);
+        }
+    }
+    */
+   multiThreadTest();
     // singleThreadTest2();
     //big boy test for timing of inserting, replacing, getting, and deleting
         //tests are done with string but may be done with any type contained 
-    singleThreadTest3(1000000);
+    //singleThreadTest3(1000000);
+    //multithreaded_test();
 }

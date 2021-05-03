@@ -29,10 +29,10 @@ class KeyValueStore
     KeyValueStore(size_t initial_size);
     KeyValueStore(std::string fn); // Deserialize from JSON
 
-    bool hasKey(K key);
+    bool hasKey(K key) { return hasKey(key, true); }
     std::optional<V> get(K key);
-    bool put(K key, V value);
-    bool replace(K key, V value); // Should be easy to add
+    bool put(K key, V value) { return put(key, value, true); }
+    bool replace(K key, V value);
     bool del(K key);
 
     void print();
@@ -48,6 +48,9 @@ class KeyValueStore
     bool should_resize();
     void resize(size_t new_size);
     int hash(K key);
+
+    bool put(K key, V value, bool get_lock);
+    bool hasKey(K key, bool get_lock);
 };
 
 template <class K, class V, class H, class SK, class SV>
@@ -124,9 +127,12 @@ KeyValueStore<K, V, H, SK, SV>::KeyValueStore(std::string fn)
 }
 
 template <class K, class V, class H, class SK, class SV>
-bool KeyValueStore<K, V, H, SK, SV>::hasKey(K key)
+bool KeyValueStore<K, V, H, SK, SV>::hasKey(K key, bool get_lock)
 {
-    std::shared_lock<std::shared_mutex> lock(access_mutex);
+    if (get_lock)
+    {
+        std::shared_lock<std::shared_mutex> lock(access_mutex);
+    }
     size_t h = hash(key);
     for (ll_itr itr = hash_arr[h].begin(); itr != hash_arr[h].end(); itr++)
     {
@@ -155,11 +161,14 @@ std::optional<V> KeyValueStore<K, V, H, SK, SV>::get(K key)
 }
 
 template <class K, class V, class H, class SK, class SV>
-bool KeyValueStore<K, V, H, SK, SV>::put(K key, V value)
+bool KeyValueStore<K, V, H, SK, SV>::put(K key, V value, bool get_lock)
 {
-    std::unique_lock<std::shared_mutex> lock(access_mutex);
+    if (get_lock)
+    {
+        std::unique_lock<std::shared_mutex> lock(access_mutex);
+    }
     size_t h = hash(key);
-    if (hasKey(key))
+    if (hasKey(key, false))
     {
         return false;
     }
@@ -192,7 +201,7 @@ bool KeyValueStore<K, V, H, SK, SV>::replace(K key, V value)
         }
     }
     // Key not found, just add it
-    return put(key, value);
+    return put(key, value, false);
 }
 
 template <class K, class V, class H, class SK, class SV>
@@ -290,7 +299,7 @@ void KeyValueStore<K, V, H, SK, SV>::resize(size_t new_size)
     {
         for (auto const &kv : bin)
         {
-            put(kv.first, kv.second);
+            put(kv.first, kv.second, false);
         }
     }
 }

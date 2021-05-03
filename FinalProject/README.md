@@ -48,7 +48,14 @@ In order to support concurrent commands through `std::thread`, we make use of `s
 Serialization is performed to JSON. JSON as a text format is used as it avoids issues with binary serialization such as endianess, and possible issues with bit alignment. The library [jsoncpp](https://github.com/open-source-parsers/jsoncpp) is used to handle parsing JSON. The default serializer supports integers, floats, and strings. For other types to be serialized, a cusom class should be passed to SK and SV for serializing the key and value respectively. 
 
 ## Compiling
-### CMake: TODO
+### CMake
+```
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make final_test
+$ make deserialize_test
+```
 ### G++:
 `g++ kvstore_test.cpp jsoncpp.cpp -std=c++11`
 

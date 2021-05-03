@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 
 macro(remove_cxx_flag flag)
   string(REPLACE "${flag}" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
@@ -9,11 +13,9 @@ endmacro()
 remove_cxx_flag("-O3")
 #message(${CMAKE_CXX_FLAGS_RELEASE})
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}  -O2")
-message(${CMAKE_CXX_FLAGS_RELEASE}) # print "-DNDEBUG"
+#set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+#message(${CMAKE_CXX_FLAGS_RELEASE}) # print "-DNDEBUG"
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 project(Josh_Sid_ACS VERSION 0.1.0)
 
@@ -37,6 +39,8 @@ target_link_libraries(project4_encode pthread)
 
 add_executable(final_test FinalProject/kvstore_test.cpp FinalProject/jsoncpp.cpp)
 add_executable(deserialize_test FinalProject/deserialize_test.cpp FinalProject/jsoncpp.cpp)
+target_link_libraries(final_test pthread)
+target_link_libraries(deserialize_test pthread)
 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
