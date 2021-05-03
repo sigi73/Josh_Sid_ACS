@@ -57,6 +57,95 @@ $ make final_test
 $ make deserialize_test
 ```
 ### G++:
-`g++ kvstore_test.cpp jsoncpp.cpp -std=c++11 -lpthread`
-
+`g++ kvstore_test.cpp jsoncpp.cpp -std=c++11 -lpthread`.
 `g++ deserialize_test.cpp jsoncpp.cpp -std=c++11 -lpthread`
+
+## Performance Testing
+
+All tables for testing were generated with key values within a specific range randomly assigned given to randomly generated alphanumeric strings. 
+
+### Insert Performance
+Inserting into the table was done in sigle threaded mode as there is no benefit to multithreading due to only one object being able to be inserted into the table at a time. Therefore there should be no performace gain expected. 
+
+| Number of Inserts  | Time to Complete (in Micro Seconds)	| 
+| :----: |  :----:   | 
+|1000    | 2031      |
+|2500    | 3570	     | 
+|5000	   | 8995	     |
+|10000   | 17015     | 
+|20000   | 29475     | 
+|30000   | 54256     | 
+|40000   | 61004     |
+|50000   | 65548     |
+|75000   | 116779    |
+|100000  | 131784    |
+|250000  | 472532    |
+|500000  | 998278    |
+|750000  | 1142650   |
+|1000000 | 2001398   |
+
+<img src="https://cdn.discordapp.com/attachments/366025595257225229/838840642721415179/Insert_Graph.JPG" width="700">
+
+### Replace and  Single-threaded Look-up Performance
+The number of operations performed for both replace and look-up were both 25% of the size of the table. The range for which the replace was done was the first 25% of the range of key values and the look-up was done on the subsequent 25%.
+
+| Size of Table  | Number of Operations | Replacement Time (in Micro Seconds)	| Look-up Time (in Micro Seconds)	|
+| :----: |  :----:   |  :----:   | :----:   | 
+|1000    | 250       |34         |40        |
+|2500    | 625	     |78         |78        |
+|5000	   | 1250	     |161        |181       |
+|10000   | 2500      |273        |325       |
+|20000   | 5000      |523        |708       |
+|30000   | 7500      |788        |982       |
+|40000   | 10000     |1044       |1473      |
+|50000   | 12500     |1308       |1969      |
+|75000   | 18750     |1948       |2952      |
+|100000  | 25000     |2683       |4101      |
+|250000  | 62500     |6790       |8710      |
+|500000  | 125000    |13178      |17626     |
+|750000  | 187500    |19884      |32314     |
+|1000000 | 250000    |26471      |35379     |
+
+<img src="https://cdn.discordapp.com/attachments/366025595257225229/838847532603408414/ReplaceLookup_Graph.JPG" width="700">
+
+### Effect of Multithreading on Performance
+Because multithreading cannot be utilized on operations that change the database (i.e. insert, replace, delete), the operation chosen to test multithreading was the Look-up. The two and four threaded tests were performed with the same size tables and same number of key values to look up.
+
+| Size of Table  | Number of Operations | Single-threaded Look-up Time (in Micro Seconds)	|Two threaded Look-up Time (in Micro Seconds)	| Four threaded Look-up Time (in Micro Seconds)	|
+| :----: |  :----:   | :----:   | :----:   | :----:   | 
+|1000    | 250       |40        |105       |296       |
+|2500    | 625	     |78        |139       |322       |
+|5000	   | 1250	     |181       |225       |292       |
+|10000   | 2500      |325       |365       |411       |
+|20000   | 5000      |708       |674       |589       |
+|30000   | 7500      |982       |993       |946       |
+|40000   | 10000     |1473      |1200      |1148      |
+|50000   | 12500     |1969      |1527      |1385      |
+|75000   | 18750     |2952      |2141      |1883      |
+|100000  | 25000     |4101      |2963      |2488      |
+|250000  | 62500     |8710      |10421     |7285      |
+|500000  | 125000    |17626     |16060     |10892     |
+|750000  | 187500    |32314     |24704     |17705     |
+|1000000 | 250000    |35379     |28705     |22854     |
+<img src="https://cdn.discordapp.com/attachments/366025595257225229/838860117348450374/unknown.png" width="700">
+
+### Delete Performance
+The number of operations performed for delete was 50% of the size of the table and every other key was chosen to be deleted.
+
+| Size of Table  | Number of Operations | Delete Time (in Micro Seconds)	| 
+| :----: |  :----:   |  :----:   |
+|1000    | 500       |72         |
+|2500    | 1250	     |124        |
+|5000	   | 2500	     |306        |
+|10000   | 5000      |543        |
+|20000   | 10000     |1172       |
+|30000   | 15000     |1627        |
+|40000   | 20000     |2308       |
+|50000   | 25000     |3241       |
+|75000   | 37500     |4489       |
+|100000  | 50000     |6780       |
+|250000  | 125000     |14391       |
+|500000  | 250000    |54854      |
+|750000  | 375000    |19884      |
+|1000000 | 500000    |57889      |
+<img src="https://cdn.discordapp.com/attachments/366025595257225229/838859970823847987/Delete_Graph.JPG" width="700">
