@@ -57,6 +57,6 @@ $ make final_test
 $ make deserialize_test
 ```
 ### G++:
-`g++ kvstore_test.cpp jsoncpp.cpp -std=c++11 -pthread`
+`g++ kvstore_test.cpp jsoncpp.cpp -std=c++11 -lpthread`
 
-`g++ deserialize_test.cpp jsoncpp.cpp -std=c++11 -pthread`
+`g++ deserialize_test.cpp jsoncpp.cpp -std=c++11 -lpthread`
