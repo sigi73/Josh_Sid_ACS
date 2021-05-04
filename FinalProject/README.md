@@ -64,6 +64,10 @@ $ make deserialize_test
 
 All tables for testing were generated with key values within a specific range randomly assigned given to randomly generated alphanumeric strings. 
 
+System specs:
+CPU: i7-8700k at 4.5GHz
+RAM: 32GB (4x8GB) 3200MHz Corsair Vengeance LPX
+
 ### Insert Performance
 Inserting into the table was done in sigle threaded mode as there is no benefit to multithreading due to only one object being able to be inserted into the table at a time. Therefore there should be no performace gain expected. 
 
@@ -149,3 +153,7 @@ The number of operations performed for delete was 50% of the size of the table a
 |750000  | 375000    |19884      |
 |1000000 | 500000    |57889      |
 <img src="https://cdn.discordapp.com/attachments/366025595257225229/838859970823847987/Delete_Graph.JPG" width="700">
+## Resultts and Conclusions
+
+From testing, the inputing values into the hashtable has a complexity of O(n) which is ideal as that is what is expected inserting every value into the table. From this it can be determined that the impact of the resize does not effect the performace of inserting values. If it had, the trend of the curve would be more like O(nlog(n)) which would be unfavorable for very large inserts. For the replace vs singlethreaded lookup, the performance of the lookup is worse than that of the replace. This may be due to the implementation or more likely the check to ensure that the value retrieved is not null. While both of these trends are linear which is not the ideal performance of a hashtable replace and get operation which is constant. However due to the time scale being so small, in real world application, the get and replace operations would effectively be constant. This holds true for the delete operation as well which is also linear but also operates so fast it would effectively be constant. For the effect of multithreading, the benefit of using multiple threads is very apparent when the number of inserts is 40000. After this point it is also apparent that using 4 threads is faster than 2 threads which is still faster than a single threaded execution. It is expected however that if more threads were used there would be deminishing returns.
+
